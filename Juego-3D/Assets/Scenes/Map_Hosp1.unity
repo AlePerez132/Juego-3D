@@ -418,6 +418,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 493860, guid: a73967be39a7cc74ca310e8a9d9de82d, type: 3}
   m_PrefabInstance: {fileID: 190910117}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &314537428 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+  m_PrefabInstance: {fileID: 1188208097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &318764539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2444,7 +2449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90ba6530d9bfda47abb4610956b2f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 314537428}
   fov: 60
   invertCamera: 0
   cameraCanMove: 1
