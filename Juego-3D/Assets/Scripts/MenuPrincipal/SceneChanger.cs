@@ -5,7 +5,7 @@ using TMPro;
 
 public class CambiarEscena : MonoBehaviour
 {
-    private string nombreEscena = "Escena1"; // Nombre de la escena a cargar
+    private string nombreEscena = "Map_Hosp1"; // Nombre de la escena a cargar
     public ButtonManager buttonManager;
 
     public void CambiarDeEscena()
