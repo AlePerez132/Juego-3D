@@ -424,9 +424,12 @@ public class GunScript : MonoBehaviour {
 
 				int randomNumberForMuzzelFlash = Random.Range(0,5);
 				if (bullet)
-					Instantiate (bullet, bulletSpawnPlace.transform.position, bulletSpawnPlace.transform.rotation);
+				{
+					Debug.Log("Shooting bullet");
+                    Instantiate(bullet, bulletSpawnPlace.transform.position, bulletSpawnPlace.transform.rotation);
+				}
 				else
-					print ("Missing the bullet prefab");
+					print("Missing the bullet prefab");
 				holdFlash = Instantiate(muzzelFlash[randomNumberForMuzzelFlash], muzzelSpawn.transform.position /*- muzzelPosition*/, muzzelSpawn.transform.rotation * Quaternion.Euler(0,0,90) ) as GameObject;
 				holdFlash.transform.parent = muzzelSpawn.transform;
 				if (shoot_sound_source)

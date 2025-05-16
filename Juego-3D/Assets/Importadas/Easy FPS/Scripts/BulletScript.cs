@@ -15,23 +15,37 @@ public class BulletScript : MonoBehaviour {
 	[Tooltip("Put Weapon layer and Player layer to ignore bullet raycast.")]
 	public LayerMask ignoreLayer;
 
+	public int danio = 25;
 	/*
 	* Uppon bullet creation with this script attatched,
 	* bullet creates a raycast which searches for corresponding tags.
 	* If raycast finds somethig it will create a decal of corresponding tag.
 	*/
 	void Update () {
+		Debug.Log("Bullet Update");
 
-		if(Physics.Raycast(transform.position, transform.forward,out hit, maxDistance, ~ignoreLayer)){
+        if (Physics.Raycast(transform.position, transform.forward,out hit, maxDistance, ~ignoreLayer)){
 			if(decalHitWall){
-				if(hit.transform.tag == "LevelPart"){
-					Instantiate(decalHitWall, hit.point + hit.normal * floatInfrontOfWall, Quaternion.LookRotation(hit.normal));
+                string hitTag = hit.transform.tag;
+                if (hit.transform.tag == "LevelPart"){
+					Debug.Log("Hit LevelPart");
+                    Instantiate(decalHitWall, hit.point + hit.normal * floatInfrontOfWall, Quaternion.LookRotation(hit.normal));
 					Destroy(gameObject);
 				}
 				if(hit.transform.tag == "Dummie"){
-					Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
-					Destroy(gameObject);
+					Debug.Log("Hit Dummie");
+                    Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    Zombie zombie = hit.transform.GetComponent<Zombie>();
+                    if (zombie != null)
+                    {
+                        zombie.RecibirDanio(danio);
+                    }
+                    Destroy(gameObject);
 				}
+				else
+				{
+					Debug.Log("Hit something else");
+                }
 			}		
 			Destroy(gameObject);
 		}
