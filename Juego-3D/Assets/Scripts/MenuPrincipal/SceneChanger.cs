@@ -26,11 +26,28 @@ public class CambiarEscena : MonoBehaviour
         StartCoroutine(CambiarEscenaDespuesDeSonido());
     }
 
+    public void CambiarDeEscenaRecords()
+    {
+        StartCoroutine(CambiarEscenaDespuesDeSonidoRecords());
+    }
+
+    public void CambiarDeEscenaMenuPrincipal()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
+    }
+
     //es para que siempre se reproduzca el sonido antes de cargar la escena
     IEnumerator CambiarEscenaDespuesDeSonido()
     {
         yield return new WaitForSeconds(1.5f);
 
         SceneManager.LoadScene(nombreEscena);
+    }
+
+    IEnumerator CambiarEscenaDespuesDeSonidoRecords()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        SceneManager.LoadScene("TablaRecords");
     }
 }

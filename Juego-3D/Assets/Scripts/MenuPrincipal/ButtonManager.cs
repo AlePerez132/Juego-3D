@@ -73,7 +73,7 @@ public class ButtonManager : MonoBehaviour
     {
         GameObject popup = GameObject.Find("Menu opciones");
         RectTransform rectTransform = popup.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(0, 150);
+        rectTransform.anchoredPosition = new Vector2(0, 130);
     }
 
     public void CerrarMenuOpciones()
