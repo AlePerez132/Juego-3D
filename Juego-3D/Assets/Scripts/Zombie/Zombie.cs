@@ -11,11 +11,14 @@ public class Zombie : MonoBehaviour
     public Transform player;
     private NavMeshAgent agent;
 
+    int danioJugador;
+
     void Start()
     {
         vidaActual = vidaMax;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        danioJugador = 20;
     }
 
     void Update()
@@ -70,5 +73,10 @@ public class Zombie : MonoBehaviour
 
         // Destruye el zombie tras 3 segundos (tiempo para que se reproduzca la animación)
         Destroy(gameObject, 1f);
+    }
+
+    public void HacerDanio()
+    {
+        player.transform.GetComponent<PlayerHealth>().RecibirDanio(danioJugador);
     }
 }
