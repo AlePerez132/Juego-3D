@@ -18,7 +18,8 @@ public class Zombie : MonoBehaviour
         vidaActual = vidaMax;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        danioJugador = 20;
+        danioJugador = 10;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
