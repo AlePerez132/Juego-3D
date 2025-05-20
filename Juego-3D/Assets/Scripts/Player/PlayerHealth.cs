@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int vidaMax=100;
+    public int vidaMax = 100;
     int vidaActual;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void RecibirDanio(int danio)
@@ -33,4 +33,12 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("El jugador ha muerto.");
     }
 
+    
+public int GetVidaActual()
+{
+    return vidaActual;
 }
+
+
+}
+
