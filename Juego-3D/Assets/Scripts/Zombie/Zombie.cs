@@ -14,12 +14,18 @@ public class Zombie : MonoBehaviour
     int danioJugador;
 
     void Start()
+{
+    vidaActual = vidaMax;
+    animator = GetComponent<Animator>();
+    agent = GetComponent<NavMeshAgent>();
+    danioJugador = 20;
+
+    if (player == null)
     {
-        vidaActual = vidaMax;
-        animator = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
-        danioJugador = 20;
+        player = GameObject.FindWithTag("Player").transform;
     }
+}
+
 
     void Update()
     {
@@ -28,14 +34,14 @@ public class Zombie : MonoBehaviour
             // Movimiento hacia el jugador
             agent.SetDestination(player.position);
 
-            // Control de animación de movimiento
+            // Control de animaciï¿½n de movimiento
             float velocidad = agent.velocity.magnitude;
             if (animator != null)
             {
                 animator.SetFloat("velocidad", velocidad);
             }
 
-            // Animación de ataque
+            // Animaciï¿½n de ataque
             float distancia = Vector3.Distance(transform.position, player.position);
             if (distancia < 2f)
             {
@@ -71,7 +77,7 @@ public class Zombie : MonoBehaviour
             agent.enabled = false;
         }
 
-        // Destruye el zombie tras 3 segundos (tiempo para que se reproduzca la animación)
+        // Destruye el zombie tras 3 segundos (tiempo para que se reproduzca la animaciï¿½n)
         Destroy(gameObject, 1f);
     }
 

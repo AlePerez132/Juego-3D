@@ -240,8 +240,6 @@ public class PlayerMovementScript : MonoBehaviour
 	{
 		grounded = false;
 	}
-
-
 	RaycastHit hitInfo;
 	private float meleeAttack_cooldown;
 	private string currentWeapo;
@@ -254,25 +252,15 @@ public class PlayerMovementScript : MonoBehaviour
 	[Tooltip("Put BulletSpawn gameobject here, palce from where bullets are created.")]
 	[HideInInspector]
 	public Transform bulletSpawn; //from here we shoot a ray to check where we hit him;
-	/*
-	* This method casts 9 rays in different directions. ( SEE scene tab and you will see 9 rays differently coloured).
-	* Used to widley detect enemy infront and increase meele hit detectivity.
-	* Checks for cooldown after last preformed meele attack.
-	*/
-
 
 	public bool been_to_meele_anim = false;
 	private void RaycastForMeleeAttacks()
 	{
 
-
-
-
 		if (meleeAttack_cooldown > -5)
 		{
 			meleeAttack_cooldown -= 1 * Time.deltaTime;
 		}
-
 
 		if (GetComponent<GunInventory>().currentGun)
 		{
@@ -319,11 +307,6 @@ public class PlayerMovementScript : MonoBehaviour
 		}
 
 	}
-
-	/*
-	 *Method that is called if the waepon hit animation has been triggered the first time via Q input
-	 *and if is, it will search for target and make damage
-	 */
 	IEnumerator MeeleAttackWeaponHit()
 	{
 		if (Physics.Raycast(ray1, out hitInfo, 2f, ~ignoreLayer) || Physics.Raycast(ray2, out hitInfo, 2f, ~ignoreLayer) || Physics.Raycast(ray3, out hitInfo, 2f, ~ignoreLayer)

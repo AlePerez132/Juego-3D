@@ -1,26 +1,27 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 
 public class PlayerHealth : MonoBehaviour
 {
     public int vidaMax = 100;
     int vidaActual;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public Slider barraVida; // ← Añade esto
+
     void Start()
     {
         vidaActual = vidaMax;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        ActualizarBarra(); // ← Añade esto
     }
 
     public void RecibirDanio(int danio)
     {
         vidaActual -= danio;
+        vidaActual = Mathf.Clamp(vidaActual, 0, vidaMax);
+        ActualizarBarra(); // ← Añade esto
+
         if (vidaActual <= 0)
         {
             Morir();
@@ -33,12 +34,16 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("El jugador ha muerto.");
     }
 
-    
-public int GetVidaActual()
-{
-    return vidaActual;
+    public int GetVidaActual()
+    {
+        return vidaActual;
+    }
+
+    void ActualizarBarra()
+    {
+        if (barraVida != null)
+        {
+            barraVida.value = (float)vidaActual / vidaMax;
+        }
+    }
 }
-
-
-}
-
