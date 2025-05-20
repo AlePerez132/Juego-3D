@@ -27,6 +27,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip angelRecibirDanio;
     public AudioClip angelMuerte;
     public AudioClip curacion;
+    public AudioClip zombieAtaque;
+    public AudioClip zombieMuerte;
     [Header("MUSICA")]
     public AudioClip musicaLobby;
     public AudioClip musicaEscena1;
@@ -81,12 +83,8 @@ public class AudioManager : MonoBehaviour
                 clipSeleccionado = musicaLobby;
                 break;
 
-            case "Escena1":
+            case "Map_Hosp1":
                 clipSeleccionado = musicaEscena1;
-                break;
-
-            case "Escena2":
-                clipSeleccionado = musicaEscena2;
                 break;
 
             default:

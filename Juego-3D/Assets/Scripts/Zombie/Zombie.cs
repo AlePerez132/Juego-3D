@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-    public int vidaMax = 100;
+    public int vidaMax;
     public int vidaActual;
     bool muerto;
 
@@ -13,18 +13,26 @@ public class Zombie : MonoBehaviour
 
     int danioJugador;
 
-    void Start()
-{
-    vidaActual = vidaMax;
-    animator = GetComponent<Animator>();
-    agent = GetComponent<NavMeshAgent>();
-    danioJugador = 20;
+    AudioManager AudioManager;
+    float tiempoUltimoSonidoAtaque = 0f;
+    public float delaySonidoAtaque = 0.9f; 
 
-    if (player == null)
+
+    void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        vidaMax = 100;
+        vidaActual = vidaMax;
+        animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        danioJugador = 10;
+
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player").transform;
+        }
+
+        AudioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
-}
 
 
     void Update()
@@ -34,18 +42,23 @@ public class Zombie : MonoBehaviour
             // Movimiento hacia el jugador
             agent.SetDestination(player.position);
 
-            // Control de animaci�n de movimiento
+            // Control de animacion de movimiento
             float velocidad = agent.velocity.magnitude;
             if (animator != null)
             {
                 animator.SetFloat("velocidad", velocidad);
             }
 
-            // Animaci�n de ataque
+            // Animacion de ataque
             float distancia = Vector3.Distance(transform.position, player.position);
             if (distancia < 2f)
             {
-                animator.SetTrigger("atacar"); 
+                if (Time.time - tiempoUltimoSonidoAtaque >= delaySonidoAtaque)
+                {
+                    tiempoUltimoSonidoAtaque = Time.time;
+                    AudioManager.reproducirEfecto(AudioManager.zombieAtaque);
+                }
+                animator.SetTrigger("atacar");
             }
         }
     }
@@ -64,6 +77,8 @@ public class Zombie : MonoBehaviour
 
     void Morir()
     {
+        AudioManager.reproducirEfecto(AudioManager.zombieMuerte);
+        
         muerto = true;
 
         if (animator != null)
@@ -83,6 +98,7 @@ public class Zombie : MonoBehaviour
 
     public void HacerDanio()
     {
+
         player.transform.GetComponent<PlayerHealth>().RecibirDanio(danioJugador);
     }
 }
