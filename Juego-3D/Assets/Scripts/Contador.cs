@@ -38,5 +38,7 @@ public class Contador : MonoBehaviour
             segundosJugados++;
             tiempoAcumulado = 0f;
         }
+        //Debug.Log("Segundos jugados: " + segundosJugados);
+        PlayerPrefs.SetInt("TiempoFinal", segundosJugados); 
     }
 }

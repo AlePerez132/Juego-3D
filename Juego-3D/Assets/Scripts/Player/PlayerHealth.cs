@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Morir()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Escena3");
         Debug.Log("El jugador ha muerto.");
     }

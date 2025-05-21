@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-
 public class GuardarPuntuacion : MonoBehaviour
 {
     public TMP_InputField inputNombre;
@@ -13,7 +12,11 @@ public class GuardarPuntuacion : MonoBehaviour
 
     void Start()
     {
-        tiempoFinal = PlayerPrefs.GetInt("TiempoFinal", 9999);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        tiempoFinal = PlayerPrefs.GetInt("TiempoFinal", 9999); //Para obtener el tiempo final guardado en PlayerPrefs. 
+        //El segundo argumento es el valor por defecto en caso de que no exista el tiempo guardado.
         textoTiempo.text = "Tu tiempo: " + tiempoFinal + " segundos";
     }
 
@@ -21,7 +24,8 @@ public class GuardarPuntuacion : MonoBehaviour
     {
         string nombre = inputNombre.text;
 
-        if (string.IsNullOrEmpty(nombre)) return;
+        if (string.IsNullOrEmpty(nombre))
+            return;
 
         Record nuevo = new Record(nombre, tiempoFinal);
         RecordManager.AgregarRecord(nuevo);
