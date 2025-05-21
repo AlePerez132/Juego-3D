@@ -23,6 +23,7 @@ public class SpawnerPorRondas : MonoBehaviour
         temporizador -= Time.deltaTime;
         if (temporizador <= 0f)
         {
+            enemigosPorRonda++;
             IniciarNuevaRonda();
             temporizador = intervaloEntreRondas; // Reiniciar temporizador
         }
