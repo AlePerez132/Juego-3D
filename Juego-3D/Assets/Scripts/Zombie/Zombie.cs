@@ -65,6 +65,7 @@ public class Zombie : MonoBehaviour
 
     public void RecibirDanio(int danio)
     {
+        Debug.Log("Recibiendo daño: " + danio);
         if (muerto) return;
 
         vidaActual -= danio;
@@ -77,6 +78,7 @@ public class Zombie : MonoBehaviour
 
     void Morir()
     {
+        Debug.Log("Zombie muerto");
         AudioManager.reproducirEfecto(AudioManager.zombieMuerte);
         
         muerto = true;
@@ -92,7 +94,6 @@ public class Zombie : MonoBehaviour
             agent.enabled = false;
         }
 
-        // Destruye el zombie tras 3 segundos (tiempo para que se reproduzca la animaci�n)
         Destroy(gameObject, 1f);
     }
 
