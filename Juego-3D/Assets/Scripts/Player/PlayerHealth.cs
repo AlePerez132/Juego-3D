@@ -5,22 +5,22 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int vidaMax = 100;
-    int vidaActual;
+    public int vidaMax = 500;
+    public int vidaActual;
 
-    public Slider barraVida; // ← Añade esto
+    public Slider barraVida; 
 
     void Start()
     {
         vidaActual = vidaMax;
-        ActualizarBarra(); // ← Añade esto
+        ActualizarBarra();
     }
 
     public void RecibirDanio(int danio)
     {
         vidaActual -= danio;
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMax);
-        ActualizarBarra(); // ← Añade esto
+        ActualizarBarra(); 
 
         if (vidaActual <= 0)
         {

@@ -15,16 +15,16 @@ public class Zombie : MonoBehaviour
 
     AudioManager AudioManager;
     float tiempoUltimoSonidoAtaque = 0f;
-    public float delaySonidoAtaque = 0.9f; 
+    public float delaySonidoAtaque = 0.9f;
 
 
     void Start()
     {
-        vidaMax = 100;
+        vidaMax = 80;
         vidaActual = vidaMax;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        danioJugador = 10;
+        danioJugador = 10; 
 
         if (player == null)
         {
@@ -43,7 +43,7 @@ public class Zombie : MonoBehaviour
             agent.SetDestination(player.position);
 
             // Control de animacion de movimiento
-            float velocidad = agent.velocity.magnitude;
+            float velocidad = agent.velocity.magnitude; 
             if (animator != null)
             {
                 animator.SetFloat("velocidad", velocidad);
@@ -80,7 +80,7 @@ public class Zombie : MonoBehaviour
     {
         Debug.Log("Zombie muerto");
         AudioManager.reproducirEfecto(AudioManager.zombieMuerte);
-        
+
         muerto = true;
 
         if (animator != null)
@@ -102,4 +102,10 @@ public class Zombie : MonoBehaviour
 
         player.transform.GetComponent<PlayerHealth>().RecibirDanio(danioJugador);
     }
+    
+    public void SetDanioJugador(int nuevoDanio)
+{
+    danioJugador = nuevoDanio;
+}
+
 }
