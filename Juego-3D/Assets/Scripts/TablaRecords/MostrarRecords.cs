@@ -9,9 +9,9 @@ public class MostrarRecords : MonoBehaviour
 
     void Start()
     {
-        // Obtener los registros y ordenarlos de menor a mayor según el tiempo
+        // Obtener los registros y ordenarlos de mayor a menor según el tiempo
         List<Record> records = RecordManager.ObtenerRecords();
-        records.Sort((x, y) => x.tiempo.CompareTo(y.tiempo));  // Ordenar por tiempo (ascendente)
+        records.Sort((x, y) => y.tiempo.CompareTo(x.tiempo));  // Ordenar por tiempo (descendente)
 
         // Limitar a los 10 primeros
         int maxRecords = Mathf.Min(records.Count, 10);
