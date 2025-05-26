@@ -1,7 +1,5 @@
 using UnityEngine;
 
-using UnityEngine;
-
 [RequireComponent(typeof(Zombie))]
 public class FuzzyZombieAI : MonoBehaviour
 {

@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;           
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementScript : MonoBehaviour
 {
+	private bool isPaused = false;
 	Rigidbody rb;
+	public GameObject pauseTextObject; 
 
 	[Tooltip("Current players speed")]
 	public float currentSpeed;
@@ -21,7 +25,8 @@ public class PlayerMovementScript : MonoBehaviour
 		cameraMain = transform.Find("Main Camera").transform;
 		bulletSpawn = cameraMain.Find("BulletSpawn").transform;
 		ignoreLayer = 1 << LayerMask.NameToLayer("Player");
-
+		if (pauseTextObject != null)
+        pauseTextObject.SetActive(false);
 	}
 	private Vector3 slowdownV;
 	private Vector2 horizontalMovement;
@@ -102,16 +107,11 @@ public class PlayerMovementScript : MonoBehaviour
 	*/
 	void Update()
 	{
-
-
 		Jumping();
-
 		Crouching();
-
 		WalkingSound();
 
-
-	}//end update
+	}
 
 	/*
 	* Checks if player is grounded and plays the sound accorindlgy to his speed
@@ -163,11 +163,29 @@ public class PlayerMovementScript : MonoBehaviour
 			print("Missing walk and running sounds.");
 		}
 
+			if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			isPaused = !isPaused;
+
+			if (isPaused)
+			{
+				Time.timeScale = 0f;
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+				if (pauseTextObject != null)
+					pauseTextObject.SetActive(true);
+			}
+			else
+			{
+				Time.timeScale = 1f;
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+				if (pauseTextObject != null)
+					pauseTextObject.SetActive(false);
+    }
+}
+
 	}
-	/*
-	* Raycasts down to check if we are grounded along the gorunded method() because if the
-	* floor is curvy it will go ON/OFF constatly this assures us if we are really grounded
-	*/
 	private bool RayCastGrounded()
 	{
 		RaycastHit groundedInfo;
@@ -185,14 +203,9 @@ public class PlayerMovementScript : MonoBehaviour
 				return false;
 			}
 		}
-		//print ("nisam if dosao");
 
 		return false;
 	}
-
-	/*
-	* If player toggle the crouch it will scale the player to appear that is crouching
-	*/
 	void Crouching()
 	{
 		if (Input.GetKey(KeyCode.C))
@@ -206,23 +219,16 @@ public class PlayerMovementScript : MonoBehaviour
 		}
 	}
 
-
 	[Tooltip("The maximum speed you want to achieve")]
 	public int maxSpeed = 5;
 	[Tooltip("The higher the number the faster it will stop")]
 	public float deaccelerationSpeed = 15.0f;
 
-
 	[Tooltip("Force that is applied when moving forward or backward")]
 	public float accelerationSpeed = 50000.0f;
 
-
 	[Tooltip("Tells us weather the player is grounded or not.")]
 	public bool grounded;
-	/*
-	* checks if our player is contacting the ground in the angle less than 60 degrees
-	*	if it is, set groudede to true
-	*/
 	void OnCollisionStay(Collision other)
 	{
 		foreach (ContactPoint contact in other.contacts)
@@ -233,9 +239,7 @@ public class PlayerMovementScript : MonoBehaviour
 			}
 		}
 	}
-	/*
-	* On collision exit set grounded to false
-	*/
+
 	void OnCollisionExit()
 	{
 		grounded = false;
@@ -251,7 +255,7 @@ public class PlayerMovementScript : MonoBehaviour
 	private float offsetStart = 0.05f;
 	[Tooltip("Put BulletSpawn gameobject here, palce from where bullets are created.")]
 	[HideInInspector]
-	public Transform bulletSpawn; //from here we shoot a ray to check where we hit him;
+	public Transform bulletSpawn; 
 
 	public bool been_to_meele_anim = false;
 	private void RaycastForMeleeAttacks()
@@ -331,10 +335,6 @@ public class PlayerMovementScript : MonoBehaviour
 	RaycastHit hit;//stores info of hit;
 	[Tooltip("Put your particle blood effect here.")]
 	public GameObject bloodEffect;//blod effect prefab;
-	/*
-	* Upon hitting enemy it calls this method, gives it raycast hit info 
-	* and at that position it creates our blood prefab.
-	*/
 	void InstantiateBlood(RaycastHit _hitPos, bool swordHitWithGunOrNot)
 	{
 
